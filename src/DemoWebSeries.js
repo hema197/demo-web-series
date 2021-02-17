@@ -5,6 +5,12 @@ import './web-series-overview.js';
 export class DemoWebSeries extends LitElement {
   static get styles(){
     return css`
+    *{
+      padding:0;
+      margin:0;
+      box-sizing:border-box;
+
+    }
     :host{
           display: flex;
           flex-direction: column;
@@ -16,11 +22,12 @@ export class DemoWebSeries extends LitElement {
           color: whitesmoke;
           background-image: linear-gradient(to right, rgba(58, 56, 56, 0), rgb(15, 15, 15));
       }
+      .content{
+        display: flex;
+        flex-grow:1;
+      }
 
-    .content{
-                display: flex;
-                flex-grow:1;
-            }`;
+    `;
   }
 
   render() {

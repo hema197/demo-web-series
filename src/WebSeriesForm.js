@@ -31,14 +31,15 @@ export class WebSeriesForm extends LitElement{
 
     static get styles() {
         return css`
+        :host{
+            display:flex;
+            flex-grow:1;
+            flex-basis:60%;
+        }
         .form{
-            flex:60%;
+            width:100%;
             margin-left:10%;
             margin-top:8%;
-
-        }
-        p{
-            display:inline-block;
         }
         label{
             margin-left:10px;
@@ -96,17 +97,14 @@ export class WebSeriesForm extends LitElement{
                             <label for="title">Title:</label>
                             <input type="text" id="title" name="title" required>
                             </p>
-                            <br>
                             <p>
                             <label for="stars">Stars:</label>
                             <input type="text" id="stars" name="stars" required>
                             </p>
-                            <br>
                             <p>
                             <label for="director">Director:</label>
                             <input type="text" id="director" name="director" required>
                             </p>
-                            <br>
                             <p>
                             <label for="streaming">Streaming On:</label> 
                             <select name="streming on" id="streaming">
@@ -122,7 +120,7 @@ export class WebSeriesForm extends LitElement{
                             <button class="add" type="submit">Add</button>
                             </p>   
                         </form>
-                    </div>
-                    `;
+        </div>
+        `;
     }
     }
