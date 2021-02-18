@@ -1,34 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-export class WebSeriesForm extends LitElement{
-    // static get properties(){
-    //     return {
-    //         title:{
-    //             type:String
-    //         },
-    //         director:{
-    //             type:String
-    //         },
-    //         stars:{
-    //             type:String
-    //         },
-    //         streaming:{
-    //             type:String
-    //         }
-            
-    //     }
-
-    // };
-
-    // constructor(){
-    //     super();
-    //     this.title='';
-    //     this.director='';
-    //     this.stars='';
-    //     this.streaming='';
-
-    // }
-
+export class WebSeriesForm extends LitElement{   
     static get styles() {
         return css`
         :host{
