@@ -1,33 +1,33 @@
 import { LitElement, html, css } from 'lit-element';
 
 export class WebSeriesForm extends LitElement{
-    static get properties(){
-        return {
-            title:{
-                type:String
-            },
-            director:{
-                type:String
-            },
-            stars:{
-                type:String
-            },
-            streaming:{
-                type:String
-            }
+    // static get properties(){
+    //     return {
+    //         title:{
+    //             type:String
+    //         },
+    //         director:{
+    //             type:String
+    //         },
+    //         stars:{
+    //             type:String
+    //         },
+    //         streaming:{
+    //             type:String
+    //         }
             
-        }
+    //     }
 
-    };
+    // };
 
-    constructor(){
-        super();
-        this.title='';
-        this.director='';
-        this.stars='';
-        this.streaming='';
+    // constructor(){
+    //     super();
+    //     this.title='';
+    //     this.director='';
+    //     this.stars='';
+    //     this.streaming='';
 
-    }
+    // }
 
     static get styles() {
         return css`
@@ -89,10 +89,24 @@ export class WebSeriesForm extends LitElement{
         }`;
     }
 
+    _addShow(e){
+        e.preventDefault();
+        const title=this.shadowRoot.getElementById('title').value;
+        const stars=this.shadowRoot.getElementById('stars').value;
+        const director=this.shadowRoot.getElementById('director').value;
+        const streaming=this.shadowRoot.getElementById('streaming').value;
+        const eventDetails={t:title, s:stars, d:director, st:streaming };
+        this.dispatchEvent(new CustomEvent('add-show', {detail: eventDetails}));
+        this.shadowRoot.getElementById('title').value='';
+        this.shadowRoot.getElementById('stars').value='';
+        this.shadowRoot.getElementById('director').value='';
+        this.shadowRoot.getElementById('streaming').selectedIndex=0;  
+    }
+
     render(){
         return html`
         <div class="form">
-                        <form method="POST" @submit="${this.addShow}">
+                        <form method="POST" @submit="${e=>this._addShow(e)}">
                             <p>
                             <label for="title">Title:</label>
                             <input type="text" id="title" name="title" required>
