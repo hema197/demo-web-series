@@ -3,13 +3,13 @@ import './web-series-form.js';
 import './web-series-overview.js';
 
 export class DemoWebSeries extends LitElement {
-  static get properties(){
-    return {
-        shows:{
-          type:Array
-        }
-      }
-  };
+  // static get properties(){
+  //   return {
+  //       shows:{
+  //         type:Array
+  //       }
+  //     }
+  // };
 
   constructor(){
     super();
