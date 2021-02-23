@@ -3,21 +3,21 @@ import { LitElement, html, css } from 'lit-element';
 export class WebSeriesForm extends LitElement{   
     static get styles() {
         return css`
-        :host{
-            display:flex;
-            flex-grow:1;
-            flex-basis:60%;
-        }
+         :host{
+            min-height:100vh;
+        } 
         .form{
-            width:100%;
-            margin-left:10%;
+            width:50%;
+            margin-left:25%;
             margin-top:8%;
+            margin-right:25%;
+             min-height:100vh; 
         }
         label{
             margin-left:10px;
             margin-bottom:10px;
             width:120px;
-            color:whitesmoke;
+            color:black;
             font-size:26px;
             text-align: left;
             display:inline-block;
@@ -33,10 +33,10 @@ export class WebSeriesForm extends LitElement{
         }
         form input:hover{
             cursor: pointer;
-            border:1px solid yellow;
+            border:1px solid cyan;
         }
         form select:hover{
-            border:1px solid yellow;
+            border:1px solid cyan;
             cursor: pointer;
         }
         .add{
@@ -44,19 +44,19 @@ export class WebSeriesForm extends LitElement{
             padding:5px;
             width:70px;
             height:30px;
-            margin-top:55px;
-            margin-left:25px;
+            margin-top:5%;
+            margin-left:25%;
             border-radius:10px;
             font-size:15px;
-            background-image: linear-gradient(to bottom, grey,black);
-            box-shadow: 0 1px 1px 0 black;
+            background-color:#47C6E6;
+            box-shadow: 0 1px 1px 0 #47C6E6;
             color:whitesmoke;
             border:none;
             outline:none;
         }
         .add:hover{
-            background-color:black;
-            opacity:1;
+            background-color:#078DBA;
+            box-shadow:none;
             cursor:pointer;
         }`;
     }

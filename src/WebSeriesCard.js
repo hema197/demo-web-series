@@ -38,15 +38,13 @@ export class WebSeriesCard extends LitElement{
     static get styles(){
         return css`
         :host{
-            border:1px solid black;
             border-radius:5px;
             width:235px;
             height:150px;
             margin:0 5px 30px 5px;
-            background-color:black;
-            opacity:0.5;
-            color:white;
-            box-shadow: 0 1px 1px yellow ;
+            background:linear-gradient(to left top, #0265F0, #C5FAF9);
+            color:black;
+            box-shadow: 0 1px 1px black ;
         }
         .show{
             height:73%;
@@ -63,8 +61,8 @@ export class WebSeriesCard extends LitElement{
             margin-left:25%;
             margin-right:25%;
             text-align:center;
-            background-color:yellow;
-            color:black;
+            background-color:black;
+            color:whitesmoke;
             margin-top:auto;
             border-radius:20px;
         }

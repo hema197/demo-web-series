@@ -33,6 +33,7 @@
   "author": "demo-web-series",
   "license": "MIT",
   "dependencies": {
+    "@lion/core": "^0.14.0",
     "@lion/tabs": "^0.6.0",
     "lit-element": "^2.4.0",
     "lit-html": "^1.3.0"

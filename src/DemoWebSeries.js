@@ -1,17 +1,12 @@
 import { LitElement, html, css } from 'lit-element';
 import './web-series-form.js';
 import './web-series-overview.js';
+import './web-series-tab.js';
+import './web-series-tab-panel.js';
+import './web-series-tabs.js';
 
 export class DemoWebSeries extends LitElement {
-  // static get properties(){
-  //   return {
-  //       shows:{
-  //         type:Array
-  //       }
-  //     }
-  // };
-
-  constructor(){
+    constructor(){
     super();
     this.shows=[
         {title:"F.R.I.E.N.D.S", director:"David Crane", stars:"Mathew Perry", streamingPlatform:"Netflix"},
@@ -26,26 +21,26 @@ export class DemoWebSeries extends LitElement {
 
   static get styles(){
     return css`
-    *{
-      padding:0;
-      margin:0;
-      box-sizing:border-box;
-    }
-    :host{
-          display: flex;
-          flex-direction: column;
+     :host{
+          padding:0;
+          margin:0;
+          box-sizing:border-box;
           min-height:100vh;
-          background-image: url('./images/bgimg.jpg');
         }
+        header{
+         padding:0;
+         margin:0;
+         background-image:url('./images/headerimg.jpg');
+        
+        } 
     h1{
-          text-align: center;
-          color: whitesmoke;
-          background-image: linear-gradient(to right, rgba(58, 56, 56, 0), rgb(15, 15, 15));
+          padding:0;
+          margin:0;
+          text-align: left;
+          color: black;
+          font-family: 'Lobster', cursive;
       }
-      .content{
-        display: flex;
-        flex-grow:1;
-      }
+      
     `;
   }
 
@@ -62,13 +57,23 @@ export class DemoWebSeries extends LitElement {
 
   render() {
     return html`
+    <header>
     <h1>Web Series</h1>
-    <div class="content">
-    <web-series-form @add-show=${this._addShow}></web-series-form>
-    <web-series-overview
-    .shows=${this.shows}>
+    </header>
+    <web-series-tabs>
+    <web-series-tab slot="tab">Home</web-series-tab>>
+    <web-series-tab-panel slot="panel"><section class="home"></section></web-series-tab-panel>
+    <web-series-tab slot="tab">Shows</web-series-tab>
+    <web-series-tab-panel slot='panel'>
+    <web-series-overview .shows=${this.shows}>
     </web-series-overview>
-    </div>
+    </web-series-tab-panel>
+    <web-series-tab slot="tab">Add show</web-series-tab>
+    <web-series-tab-panel slot="panel">
+    <web-series-form  @add-show=${this._addShow}>
+    </web-series-form>
+    </web-series-tab-panel>
+    </web-series-tabs>
      `;
     
   }
