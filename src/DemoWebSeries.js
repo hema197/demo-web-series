@@ -5,7 +5,17 @@ import './web-series-tab.js';
 import './web-series-tab-panel.js';
 import './web-series-tabs.js';
 
+
 export class DemoWebSeries extends LitElement {
+  static get properties(){
+    return {
+      shows:{
+          type:Array,
+          
+      }
+      };
+  }
+
     constructor(){
     super();
     this.shows=[
@@ -46,10 +56,10 @@ export class DemoWebSeries extends LitElement {
 
   _addShow(e){
     const show={
-      title:e.detail.t,
-      stars:e.detail.s,
-      director:e.detail.d,
-      streamingPlatform:e.detail.st
+      title:e.detail.title,
+      stars:e.detail.stars,
+      director:e.detail.director,
+      streamingPlatform:e.detail.streaming
 
     };
     this.shows=[show, ...this.shows]

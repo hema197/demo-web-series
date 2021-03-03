@@ -39,11 +39,10 @@ export class WebSeriesOverview extends LitElement{
         }
         
         render(){
-        const showsRender=this.shows.slice(0,6);
         return html`
         <div class="cards-content">
         <ul id="shows">
-        ${repeat(showsRender,show=>show.title,(show, index)=>
+        ${repeat(this.shows,show=>show.title,(show, index)=>
         html`
         <web-series-card
         .index=${index}

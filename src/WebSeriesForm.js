@@ -1,112 +1,127 @@
-import { LitElement, html, css } from 'lit-element';
+import {ScopedElementsMixin, LitElement, html, css} from '@lion/core';
+import {LionForm} from  '@lion/form';
+import {LionButton} from '@lion/button';
+import {LionInput} from '@lion/input';
+import {LionSelect} from '@lion/select';
+import {Required} from '@lion/form-core';
+import {FieldValidator} from './FieldValidator.js'
 
-export class WebSeriesForm extends LitElement{   
-    static get styles() {
-        return css`
-         :host{
-            min-height:100vh;
+export class  WebSeriesForm extends ScopedElementsMixin(LitElement){
+    static get scopedElements(){
+        return{
+            'lion-form':LionForm,
+            'lion-input':LionInput,
+            'lion-button':LionButton,
+            'lion-select':LionSelect
+        };
+    }
+
+    static get styles(){
+        return css
+            `   
+            .form{
+                width:30%;
+                height:53vh;
+                margin:3% 45% 0 25%;
+                padding:20px;
+                box-shadow:2px 3px 3px 3px #1dbfff;
+            
+            }
+              input,select{
+                border:1px solid black;
+                border-radius:5px;
+                padding:2px;
+                margin-bottom:12px;
+                width:60%;
+                display:block;
+            }
+            input:hover{
+                box-shadow:0.5px 0.5px 0.7px 0.5px #1dbfff;
+                border:none;
+                outline:none;
+                cursor:pointer;
+            }
+            select:hover{
+                box-shadow:0.5px 0.5px 0.7px 0.5px #1dbfff;
+                border:none;
+                outline:none;
+                cursor:pointer;
+            }
+            input:focus{
+                box-shadow:1px 1px 1px 1px #1dbfff;
+            }
+            input:blur{
+                box-shadow:1px 1px 1px 1px #1dbfff;
+            }
+            input:invalid{
+                border:none;
+                box-shadow:1px 1px 1px 1px red;
+            }
+        
+            .add{
+                background:#1dbfff;
+                color:white;
+                border:none;
+                outline:none;
+                border-radius:5px;
+                margin-left:35%;
+                margin-top:10%;
+                width:26%;
+                padding-left:10%;
+                
+            }
+            .add:hover{
+                color:white;
+                background:black;
+                opacity:0.5;
+                font-style:bold;
+                cursor:pointer;
+                font-weight:400px;
+            }`
         } 
-        .form{
-            width:50%;
-            margin-left:25%;
-            margin-top:8%;
-            margin-right:25%;
-             min-height:100vh; 
-        }
-        label{
-            margin-left:10px;
-            margin-bottom:10px;
-            width:120px;
-            color:black;
-            font-size:26px;
-            text-align: left;
-            display:inline-block;
-        }
-        form input,form select{
-            padding:5px;
-            margin-left:30px;
-            margin-bottom:15px;
-            border-radius:5px;
-            width:190px;
-            border:none;
-            outline:none;
-        }
-        form input:hover{
-            cursor: pointer;
-            border:1px solid cyan;
-        }
-        form select:hover{
-            border:1px solid cyan;
-            cursor: pointer;
-        }
-        .add{
-            text-align:center;
-            padding:5px;
-            width:70px;
-            height:30px;
-            margin-top:5%;
-            margin-left:25%;
-            border-radius:10px;
-            font-size:15px;
-            background-color:#47C6E6;
-            box-shadow: 0 1px 1px 0 #47C6E6;
-            color:whitesmoke;
-            border:none;
-            outline:none;
-        }
-        .add:hover{
-            background-color:#078DBA;
-            box-shadow:none;
-            cursor:pointer;
-        }`;
+         
+    // eslint-disable-next-line class-methods-use-this
+    submitHandler(ev){
+        if(ev.target.hasFeedbackFor.includes('error')){
+            const errorEl=ev.target.formElements.find(el=>
+                el.hasFeedbackFor.includes('error'));
+        errorEl.focus();
+        return;
     }
-
-    _addShow(e){
-        e.preventDefault();
-        const title=this.shadowRoot.getElementById('title').value;
-        const stars=this.shadowRoot.getElementById('stars').value;
-        const director=this.shadowRoot.getElementById('director').value;
-        const streaming=this.shadowRoot.getElementById('streaming').value;
-        const eventDetails={t:title, s:stars, d:director, st:streaming };
-        this.dispatchEvent(new CustomEvent('add-show', {detail: eventDetails}));
-        this.shadowRoot.getElementById('title').value='';
-        this.shadowRoot.getElementById('stars').value='';
-        this.shadowRoot.getElementById('director').value='';
-        this.shadowRoot.getElementById('streaming').selectedIndex=0;  
+    else{
+        const data=ev.target.serializedValue;
+        const eventDetails=data;
+        this.dispatchEvent(new CustomEvent('add-show', {detail:eventDetails}));
+        ev.target.reset();
+        
     }
+};   
 
     render(){
         return html`
-        <div class="form">
-                        <form method="POST" @submit="${e=>this._addShow(e)}">
-                            <p>
-                            <label for="title">Title:</label>
-                            <input type="text" id="title" name="title" required>
-                            </p>
-                            <p>
-                            <label for="stars">Stars:</label>
-                            <input type="text" id="stars" name="stars" required>
-                            </p>
-                            <p>
-                            <label for="director">Director:</label>
-                            <input type="text" id="director" name="director" required>
-                            </p>
-                            <p>
-                            <label for="streaming">Streaming On:</label> 
-                            <select name="streming on" id="streaming">
-                                <option value="none" selected>Select</option>
-                                <option value="Netflix">Netflix</option>
-                                <option value="Amazon Prime">Amazon Prime</option>
-                                <option value="Hotstar">Hotstar</option>
-                                <option value="MX Player">MX Player</option>
-                                <option value="others">Others</option>
-                            </select> 
-                            </p>
-                            <p>
-                            <button class="add" type="submit">Add</button>
-                            </p>   
-                        </form>
-        </div>
-        `;
+        <lion-form class="form" @submit=${this.submitHandler}>
+        <form class="inside">
+        <lion-input class="field"
+        name="title" label="Title:" .validators="${[new Required(null,{getMessage:()=>'Title is required'}), new FieldValidator()]}">
+        </lion-input>
+        <lion-input class="field"
+        name="stars" label="Stars:" .validators="${[new Required(null,{getMessage:()=>'Stars is required'}), new FieldValidator()]}">
+        </lion-input>
+        <lion-input class="field"
+        name="director" label="Director:" .validators="${[new Required(null,{getMessage:()=>'Director is required'}), new FieldValidator()]}">
+        </lion-input>
+        <lion-select name="streaming" label="Straming Platform:"  .validators="${[new Required(null,{getMessage:()=>'Please select an option.'})]}">
+        <select slot="input">
+        <option value="null" selected>Select</option>
+        <option value="Netflix">Netflix</option>
+        <option value="Amazon Prime">Amazon Prime</option>
+        <option value="MX Player">MX Player</option>
+        <option value="Hotstar">Hotstar</option>
+        </select>
+        </lion-select>
+        <lion-button type="submit" class="add" raised>Add</lion-button>
+        </form>
+        </lion-form>`;
     }
-    }
+
+}
