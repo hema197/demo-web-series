@@ -19,7 +19,7 @@ export class  WebSeriesForm extends ScopedElementsMixin(LitElement){
     static get styles(){
         return css
             `   
-            .form{
+              .form{
                 width:30%;
                 height:53vh;
                 margin:3% 45% 0 25%;
@@ -27,35 +27,26 @@ export class  WebSeriesForm extends ScopedElementsMixin(LitElement){
                 box-shadow:2px 3px 3px 3px #1dbfff;
             
             }
+            .field{
+                margin-bottom:12px;
+            }
               input,select{
                 border:1px solid black;
                 border-radius:5px;
                 padding:2px;
-                margin-bottom:12px;
                 width:60%;
                 display:block;
             }
-            input:hover{
+            input:hover, select:hover{
                 box-shadow:0.5px 0.5px 0.7px 0.5px #1dbfff;
                 border:none;
                 outline:none;
                 cursor:pointer;
             }
-            select:hover{
-                box-shadow:0.5px 0.5px 0.7px 0.5px #1dbfff;
-                border:none;
-                outline:none;
-                cursor:pointer;
-            }
-            input:focus{
-                box-shadow:1px 1px 1px 1px #1dbfff;
-            }
-            input:blur{
-                box-shadow:1px 1px 1px 1px #1dbfff;
-            }
-            input:invalid{
-                border:none;
-                box-shadow:1px 1px 1px 1px red;
+        
+            input[aria-invalid=true], select[aria-invalid=true]{
+                border:1px solid red;
+                border-radius:5px;
             }
         
             .add{
@@ -65,7 +56,7 @@ export class  WebSeriesForm extends ScopedElementsMixin(LitElement){
                 outline:none;
                 border-radius:5px;
                 margin-left:35%;
-                margin-top:10%;
+                margin-top:8%;
                 width:26%;
                 padding-left:10%;
                 
@@ -100,7 +91,7 @@ export class  WebSeriesForm extends ScopedElementsMixin(LitElement){
     render(){
         return html`
         <lion-form class="form" @submit=${this.submitHandler}>
-        <form class="inside">
+        <form>
         <lion-input class="field"
         name="title" label="Title:" .validators="${[new Required(null,{getMessage:()=>'Title is required'}), new FieldValidator()]}">
         </lion-input>
@@ -110,9 +101,9 @@ export class  WebSeriesForm extends ScopedElementsMixin(LitElement){
         <lion-input class="field"
         name="director" label="Director:" .validators="${[new Required(null,{getMessage:()=>'Director is required'}), new FieldValidator()]}">
         </lion-input>
-        <lion-select name="streaming" label="Straming Platform:"  .validators="${[new Required(null,{getMessage:()=>'Please select an option.'})]}">
+        <lion-select name="streaming" label="Straming Platform:" class="field"  .validators="${[new Required(null,{getMessage:()=>'Please select an option'})]}">
         <select slot="input">
-        <option value="null" selected>Select</option>
+        <option hidden value selected>Select</option>
         <option value="Netflix">Netflix</option>
         <option value="Amazon Prime">Amazon Prime</option>
         <option value="MX Player">MX Player</option>
